@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ifá 101 • Cosmic Gate – Orí Portal</title>
+  <style>
+    /* Inlined style.css content */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #040310;
+      --bg-panel: rgba(10, 8, 40, 0.96);
+      --accent: #f4d06f;
+      --accent-soft: rgba(244, 208, 111, 0.4);
+      --purple: #a855ff;
+      --purple-soft: rgba(168, 85, 255, 0.4);
+      --border-soft: rgba(148, 163, 255, 0.45);
+      --text-main: #f9f7ff;
+      --text-soft: #cbc5ff;
+      --danger: #fb7185;
+      --shadow-soft: 0 22px 44px rgba(0, 0, 0, 0.75);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --blur-strong: saturate(130%) blur(18px);
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Cosmic background */
+    .cosmic-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(148, 163, 255, 0.36), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(244, 208, 111, 0.12), transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(56, 189, 248, 0.08), transparent 50%),
+        radial-gradient(circle at -10% 80%, rgba(236, 72, 153, 0.12), transparent 55%),
+        #020010;
+    }
+
+    .orb {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fef9c3, #7c3aed 60%, transparent 70%);
+      opacity: 0.18;
+      filter: blur(0.5px);
+      animation: floatOrb 42s linear infinite;
+    }
+    .orb:nth-child(1) { top: 8%; left: 12%; animation-duration: 36s; }
+    .orb:nth-child(2) { top: 68%; left: 4%; animation-duration: 48s; }
+    .orb:nth-child(3) { top: 18%; right: 8%; animation-duration: 52s; }
+    .orb:nth-child(4) { top: 78%; right: 16%; animation-duration: 40s; }
+
+    @keyframes floatOrb {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      25%  { transform: translate3d(40px, -30px, 0) scale(1.05); }
+      50%  { transform: translate3d(20px, 40px, 0) scale(0.96); }
+      75%  { transform: translate3d(-30px, 10px, 0) scale(1.04); }
+      100% { transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(4, 3, 20, 0.98), rgba(6, 4, 36, 0.96));
+      border-bottom: 1px solid rgba(148, 163, 255, 0.35);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+    .nav-sigil {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 208, 111, 0.7);
+      box-shadow: 0 0 16px rgba(248, 250, 252, 0.8);
+      background: radial-gradient(circle at 30% 20%, #facc15, #4c1d95);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: #e5e7ff;
+      transition: all 0.2s ease-out;
+      cursor: pointer; /* Added cursor for better UX */
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      border-color: var(--border-soft);
+      background: radial-gradient(circle at top, rgba(129, 140, 248, 0.35), rgba(15, 23, 42, 0.8));
+      box-shadow: 0 0 18px rgba(129, 140, 248, 0.35);
+    }
+
+    /* Hero / Temple gate */
+    .hero {
+      position: relative;
+      padding: 70px 18px 40px;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 26px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.3rem, 3.7vw, 3.2rem);
+      margin: 0 0 6px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero-text p {
+      margin: 0.25rem 0 0.4rem;
+      color: var(--text-soft);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0.8rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: 999px;
+      border: 1px solid rgba(156, 163, 255, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7ff;
+      cursor: pointer;
+    }
+
+    .hero-oracle {
+      position: relative;
+      padding: 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, rgba(79, 70, 229, 0.95), rgba(15, 23, 42, 0.96));
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-oracle::before,
+    .hero-oracle::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(244, 208, 111, 0.2), transparent 60%);
+      filter: blur(2px);
+    }
+    .hero-oracle::before {
+      width: 160px;
+      height: 160px;
+      top: -40px;
+      right: -20px;
+    }
+    .hero-oracle::after {
+      width: 120px;
+      height: 120px;
+      bottom: -30px;
+      left: -40px;
+    }
+
+    .oracle-ring {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(248, 250, 252, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .oracle-core {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #facc15, #7e22ce 70%);
+      box-shadow: 0 0 24px rgba(250, 204, 21, 0.7);
+      position: relative;
+    }
+    .oracle-core::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border-radius: 50%;
+      border: 1px dashed rgba(15, 23, 42, 0.7);
+    }
+
+    .oracle-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #e0f2fe, #38bdf8);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+      animation: orbit 18s linear infinite;
+    }
+    .oracle-dot:nth-child(1) { top: -4px; left: 50%; transform-origin: -4px 110px; }
+    .oracle-dot:nth-child(2) { right: -4px; top: 50%; transform-origin: -110px -4px; animation-duration: 22s; }
+    .oracle-dot:nth-child(3) { left: -4px; bottom: 10px; transform-origin: 110px -40px; animation-duration: 26s; }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .oracle-caption {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #e0e7ff;
+    }
+
+    /* Main layout */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 18px 54px;
+      position: relative; /* Container for page panels */
+    }
+
+    .page-panel {
+        /* Hide all pages by default, show the active one */
+        display: none;
+        position: relative;
+        /* Animation effect when switching pages */
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    .page-panel.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    .section {
+      margin-top: 26px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 255, 0.5);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(12, 10, 40, 0.96));
+      padding: 20px 18px 22px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+
+    .section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.3), transparent 60%);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e5e7ff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section p,
+    .section ul,
+    .section li {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section ul {
+      padding-left: 1.15rem;
+    }
+
+    /* Interactive constellation nav (home) */
+    .constellation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .constellation-card {
+      position: relative;
+      padding: 16px 14px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 255, 0.7);
+      background: radial-gradient(circle at top left, rgba(55, 65, 194, 0.85), rgba(15, 23, 42, 0.98));
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+    }
+
+    .constellation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 44px rgba(15, 23, 42, 0.95);
+      border-color: var(--accent-soft);
+    }
+
+    .constellation-card::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 208, 111, 0.35), transparent 60%);
+      top: -40px;
+      right: -40px;
+      opacity: 0.6;
+    }
+
+    .constellation-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(248, 250, 252, 0.76);
+    }
+    .constellation-title {
+      margin: 4px 0 6px;
+      font-size: 1.1rem;
+    }
+    .constellation-desc {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    /* Accordion blocks */
+    .accordion {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 255, 0.6);
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.94);
+      margin-top: 10px;
+    }
+
+    .accordion-item + .accordion-item {
+      border-top: 1px solid rgba(55, 65, 194, 0.7);
+    }
+
+    .accordion-header {
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .accordion-title {
+      font-size: 0.95rem;
+    }
+    .accordion-indicator {
+      font-size: 0.9rem;
+      color: var(--accent);
+      transition: transform 0.2s ease-out;
+    }
+    .accordion-item.open .accordion-indicator {
+      transform: rotate(90deg);
+    }
+
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.28s ease-out;
+    }
+    .accordion-panel-inner {
+      padding: 0 14px 12px;
+      font-size: 0.92rem;
+      color: var(--text-soft);
+    }
+
+    /* Simple tooltip-style note */
+    .note-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 255, 0.6);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Modal (lightbox) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(3, 6, 23, 0.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease-out;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      max-width: 520px;
+      width: 92%;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(12, 10, 36, 0.99));
+      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.95);
+      padding: 18px 18px 20px;
+      position: relative;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .modal p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 255, 0.6);
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7ff;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(148, 163, 255, 0.35);
+      padding: 16px 18px 28px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      background: radial-gradient(circle at top, rgba(17, 24, 39, 1), rgba(3, 7, 18, 1));
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* New style for Odù patterns */
+    .odu-pattern {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        line-height: 0.9;
+        padding: 10px;
+        border: 1px dashed rgba(244, 208, 111, 0.4);
+        background: rgba(10, 8, 40, 0.8);
+        border-radius: 8px;
+        margin: 10px auto;
+        width: fit-content;
+        white-space: pre; /* Ensure lines wrap as intended */
+    }
+
+    .tenet-list {
+        list-style-type: none;
+        padding-left: 0;
+        counter-reset: tenet-counter;
+    }
+
+    .tenet-item {
+        margin-bottom: 12px;
+        border-bottom: 1px dashed rgba(148, 163, 255, 0.3);
+        padding-bottom: 8px;
+    }
+
+    .tenet-item::before {
+        counter-increment: tenet-counter;
+        content: counter(tenet-counter) ". ";
+        color: var(--accent);
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    /* New style for the locked section */
+    .locked-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        border: 2px dashed var(--accent-soft);
+        border-radius: var(--radius-lg);
+        background: rgba(10, 8, 40, 0.5);
+        text-align: center;
+        margin-top: 20px;
+    }
+    .locked-icon {
+        color: var(--accent);
+        width: 36px;
+        height: 36px;
+        margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cosmic-layer">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <div class="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-sigil"></div>
+        <span>IFÁ 101 • ORÍ PORTAL</span>
+      </div>
+      <nav class="nav-links" id="nav-links-container">
+        <!-- Links will be added and activated by JS -->
+        <a data-page="home" class="active">Home</a>
+        <a data-page="ori">Orí</a>
+        <a data-page="orisha">Orisha</a>
+        <a data-page="odu">Odù System</a>
+        <a data-page="practice">Practice</a>
+        <a data-page="tenets">Tenets</a> <!-- NEW LINK -->
+        <a data-page="resources">Resources</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HEADER/HERO (Remains constant across all pages for consistent experience) -->
+  <header class="hero">
+    <div class="hero-inner" id="hero-inner-container">
+      <div class="hero-text">
+        <div class="badge">Cosmic Yorùbá Temple • Study Space</div>
+        <h1 id="hero-title">Ifá 101 • Cosmic Gate</h1>
+        <p id="hero-subtitle">A four-dimensional study temple for Orí, Òrìṣà, Odù, and character.</p>
+        <div class="hero-tags">
+          <span class="badge">Orí</span>
+          <span class="badge">Òrìṣà</span>
+          <span class="badge">Odù</span>
+          <span class="badge">Ìwà Pẹ̀lẹ́</span>
+        </div>
+      </div>
+      <div class="hero-oracle">
+        <div class="oracle-ring">
+          <div class="oracle-core"></div>
+          <div class="oracle-dot"></div>
+          <div class="oracle-dot"></div>
+          <div class="oracle-dot"></div>
+        </div>
+        <div class="oracle-caption">
+          Tap into pattern, not prediction. This is a study temple, not a divination room.
+        </div>
+        <button data-open-modal class="badge" style="margin:10px auto 0; display:block; text-align:center;">
+          Read the Intent
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA (All pages will load here) -->
+  <main id="main-content-container">
+
+    <!-- HOME PAGE CONTENT -->
+    <div id="page-home" class="page-panel active">
+      <section class="section">
+        <h2>Why This Portal Exists</h2>
+        <p>
+          This is a <strong>Cosmic Yorùbá Temple in web form</strong> — a place to sit with the ideas of Ifá:
+          Orí, Òrìṣà, Odù, character, and sacrifice. It began as a personal study notebook, powered by AI and
+          guided by the need to heal, remember, and re-align.
+        </p>
+        <p>
+          I am not a Babaláwo. I carry one hand of Ifá and walk with the philosophy every day. I share these notes
+          not as final truth, but as a <span class="note-inline">remember-to-remember</span> — reminders to return
+          to your own Orí, your elders, and your community.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Choose a Gate</h2>
+        <div class="constellation-grid">
+          <div class="constellation-card" data-switch-to="ori">
+            <div class="constellation-label">Gate I</div>
+            <div class="constellation-title">Orí – Inner Head & Destiny</div>
+            <div class="constellation-desc">
+              Explore the idea of your inner divinity, the destiny you chose, and how alignment with Orí shapes
+              every blessing and every lesson.
+            </div>
+          </div>
+          <div class="constellation-card" data-switch-to="orisha">
+            <div class="constellation-label">Gate II</div>
+            <div class="constellation-title">Òrìṣà – Forces of Nature</div>
+            <div class="constellation-desc">
+              Meet the patterns of courage, sweetness, justice, creativity, and coolness that the Òrìṣà carry.
+            </div>
+          </div>
+          <div class="constellation-card" data-switch-to="odu">
+            <div class="constellation-label">Gate III</div>
+            <div class="constellation-title">Odù – The Oracle Library</div>
+            <div class="constellation-desc">
+              Learn how the 256 Odù form a living library of human situations, stories, and corrections.
+            </div>
+          </div>
+          <div class="constellation-card" data-switch-to="practice">
+            <div class="constellation-label">Gate IV</div>
+            <div class="constellation-title">Practice & Survival</div>
+            <div class="constellation-desc">
+              See how ideas of character, sacrifice, and community support can help us survive the 21st century.
+            </div>
+          </div>
+          <!-- New Tenets Card for Home Page -->
+          <div class="constellation-card" data-switch-to="tenets">
+            <div class="constellation-label">Gate V</div>
+            <div class="constellation-title">Tenets – Foundational Ideas</div>
+            <div class="constellation-desc">
+              The core 16 philosophical ideas that form the backbone of Ifá and Yorùbá thought.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ORÍ PAGE CONTENT -->
+    <div id="page-ori" class="page-panel">
+      <section class="section">
+        <h2>What Is Orí?</h2>
+        <p>
+          In Yorùbá philosophy, <strong>Orí</strong> is the single most important concept in your spiritual life. It is not just your physical head, but the repository of your destiny, chosen before birth in the presence of Ọlọ́dùmarè (God). It is your personal piece of the Divine — the quiet compass that guides you back to alignment.
+          
+        </p>
+        <p>
+          Your Orí is your first and greatest Òrìṣà. No other blessing, sacrifice, or ritual will succeed if your Orí does not accept it. Therefore, the path of Ifá is fundamentally about aligning with and nurturing your inner head.
+        </p>
+
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Orí-Inú vs. Orí-Òde</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  Orí has two main aspects: <strong>Orí-Inú</strong> (Inner Head) and <strong>Orí-Òde</strong> (Outer Head, or physical form/appearance). Orí-Inú is the core of your destiny and character. Orí-Òde is the manifestation of that destiny in the physical world. Maintaining Ìwà Pẹ̀lẹ́ (Good Character) helps the Inner Head guide the Outer Head toward success.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Destiny vs. Choice</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Some philosophers describe Orí with “soft determinism”: your Orí chooses a <em>pattern</em> before
+                birth, but your choices, character, and relationships determine how that pattern unfolds.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Listening to Orí</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Listening to Orí can look like quiet time, honest journaling, noticing repeating lessons,
+                seeking wise counsel, and paying attention when your body and spirit say “no more.”
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Daily Care for Orí</h2>
+        <p>
+          Beyond formal ritual (which belongs to specific lineages), the most potent daily practice is managing your character and environment. These concepts are sometimes called "Àwọn Àmì Orí"—the signs of alignment.
+        </p>
+
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Keeping Promises to Self (Integrity)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  Orí requires trust. When you constantly break promises to yourself (e.g., "I'll start exercising tomorrow," then don't), you weaken the authority of your Inner Head. Consistency builds alignment, and consistency starts with the small commitments you make privately.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Leaving Harmful Situations (Self-Preservation)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  If a place, relationship, or job consistently drains your peace, your Orí is signaling misalignment. Protecting your inner peace is a sacred duty. Orí thrives in environments where Ìwà Pẹ̀lẹ́ (good character) is possible.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Choosing Repair Over Denial (Accountability)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  When mistakes are made, acknowledging them and choosing genuine repair (Ebó) strengthens character and prevents the spiritual damage from spreading. Denial or deflection only blocks the flow of blessings into your life path.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Curating Growth (Input Control)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  The media you consume, the teachers you listen to, and the company you keep all feed your Orí. Choosing wisdom, uplifting content, and supportive people is a direct act of spiritual maintenance, ensuring your inner guidance is clean and clear.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Allowing Rest and Joy (Balance)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p>
+                  Grind and chronic stress cloud the judgment of Orí. Rest is not a luxury; it is a spiritual requirement. Joy and celebration are essential rituals that confirm alignment and thank the universe for blessings received.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 15px;">
+          These do not replace formal ritual, initiation, or the guidance of a Babaláwo, but they prepare a cleaner seat for Orí to rest in.
+        </p>
+      </section>
+    </div>
+
+    <!-- ORISHA PAGE CONTENT -->
+    <div id="page-orisha" class="page-panel">
+      <section class="section">
+        <h2>Who Are the Òrìṣà?</h2>
+        <p>
+          Òrìṣà are faces of the Divine that move through nature, culture, and our inner worlds. They are not far-away
+          deities sitting on clouds — they are present in rivers, thunder, iron, crossroads, markets, forests, oceans, and
+          the daily lives of Black people in Africa and the diaspora.
+        </p>
+        <p>
+          In this portal, we focus on understanding them as <strong>patterns and teachers</strong>, not as a list of
+          “gods” to collect.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Patterns & Energies</h2>
+        <div class="accordion">
+          <!-- 1. Ògún – Iron & Roads (Existing) -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ògún – Iron & Roads (Technology, Courage)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ògún shows up in work ethic, surgery, technology, tools, courage, and the opening of paths.
+                Ògún energy is sharp, focused, and often called on when something must be cut away.
+              </div>
+            </div>
+          </div>
+          <!-- 2. Ọ̀ṣun – Rivers & Sweetness (Existing) -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ọ̀ṣun – Rivers & Sweetness (Love, Creativity)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ọ̀ṣun is linked to fresh water, fertility, beauty, creativity, diplomacy, and love.
+                Ọ̀ṣun energy is about flow: where water is blocked, life dries up.
+              </div>
+            </div>
+          </div>
+          <!-- 3. Ṣàngó – Thunder & Justice (Existing) -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ṣàngó – Thunder & Justice (Power, Charisma)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ṣàngó is associated with thunder, lightning, performance, charisma, and righteous judgment.
+                His energy reminds us that power without balance can destroy, and power with justice can protect.
+              </div>
+            </div>
+          </div>
+          <!-- 4. Ẹlẹ́gbára/Èṣù – The Divine Messenger -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ẹlẹ́gbára/Èṣù – The Divine Messenger (Crossroads, Communication)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Often misunderstood, Ẹlẹ́gbára (or Èṣù) is the divine messenger who facilitates communication between humanity and the Divine. They own the crossroads, represent choice, and ensure that sacrifices (ebó) reach their proper destination. Their energy highlights consequences and accountability.
+              </div>
+            </div>
+          </div>
+          <!-- 5. Ọbàtálá – Creator of Forms -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ọbàtálá – Creator of Forms (Purity, Clarity)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ọbàtálá is associated with the creation of human forms and is the source of purity, wisdom, and peace. This energy calls for mental clarity, patience, and a calm, clean approach to life's challenges.
+              </div>
+            </div>
+          </div>
+          <!-- 6. Yemọja – Mother of the Oceans -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Yemọja – Mother of the Oceans (Nurturing, Deep Emotion)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Yemọja is the nurturing mother spirit of the sea. She represents deep emotional currents, safety, and the primal source of life. Her energy deals with cycles, motherhood, and profound emotional understanding.
+              </div>
+            </div>
+          </div>
+          <!-- 7. Ọ̀ṣọ́ọ̀sì – Hunter of the Forest -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ọ̀ṣọ́ọ̀sì – Hunter of the Forest (Focus, Abundance)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ọ̀ṣọ́ọ̀sì is the master hunter, representing focus, stealth, precision, and the search for knowledge (the hunt). His energy brings abundance through diligent and well-aimed effort, ensuring resources are found.
+              </div>
+            </div>
+          </div>
+          <!-- 8. Ọya – Winds & Gates of the Cemetery -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Ọya – Winds & Gates (Change, Transformation)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Ọya commands the winds, storms, and the spiritual energy of transformation and transition (the marketplace and the cemetery). Her energy governs swift and often chaotic change, protecting those who must navigate profound shifts.
+              </div>
+            </div>
+          </div>
+          <!-- 9. Orúnmìlà – The Witness of Destiny -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Orúnmìlà – Witness of Destiny (Wisdom, Stability)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Orúnmìlà is the Òrìṣà of Wisdom and Divination, the one who witnessed creation and knows the totality of the Odù. His energy is the foundation of Ifá philosophy, guiding alignment, and providing stability through truth.
+              </div>
+            </div>
+          </div>
+          <!-- 10. Agẹmọ – Chameleon / Hidden Patterns -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Agẹmọ – Chameleon (Adaptability, Hidden Patterns)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Agẹmọ (the Chameleon) represents the profound capacity for transformation, adaptability, and the slow, careful process of change. This Òrìṣà's energy encourages us to move slowly and observe the environment before acting.
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:12px;">
+          Each Òrìṣà carries medicine and warning. Knowing their stories helps us recognize when we are moving with
+          or against those currents.
+        </p>
+      </section>
+    </div>
+
+    <!-- ODU PAGE CONTENT -->
+    <div id="page-odu" class="page-panel">
+      <section class="section">
+        <h2>The Odù as a Cosmic Archive</h2>
+        <p>
+          There are 256 primary Odù in the Ifá system. Each Odù is like a multi-layered file: it holds parables,
+          histories, warnings, and instructions about specific kinds of situations and energies.
+        </p>
+        <p>
+          In a divination session, an Odù is “opened” through a casting process. Here, we only explore the idea
+          of Odù as patterns — not the mechanics of casting, and not the sacred verses.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Seeking Guidance: Preparing for Divination</h2>
+        <p>
+          This portal is for study and self-reflection. For spiritual direction, life advice, or to receive your personal Odù and prescription (Ebó), you must consult a trained and initiated priest (Babaláwo, Ìyánífá, or Olórìsà).
+        </p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">How to Prepare for a Consultation</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p><strong>1. Intention:</strong> Clearly formulate your questions in advance. Don't ask vague questions like "What about my future?" Instead, ask specific, actionable questions: "How can I improve the harmony in my home?" or "What actions should I take regarding this career change?"</p>
+                <p><strong>2. Respect:</strong> Understand that this is a sacred exchange. Be on time, pay the requested fee (a spiritual exchange for the Babaláwo's time and knowledge), and show humility. Your priest is connecting you to Orúnmìlà, the Witness of Destiny.</p>
+                <p><strong>3. Honesty:</strong> Be completely honest with the Babaláwo about your situation and your history, even if it feels uncomfortable. The Odù will diagnose the root cause, but your honesty helps the priest interpret the guidance accurately.</p>
+                <p><strong>4. Follow-Through:</strong> The divination provides a prescription (Ebó) for re-alignment. The most important part of the process is committing to the recommended actions, whether they are character shifts, offerings, or community service.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Odù as Narrative Patterns</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                Every Odù carries stories of people and communities who faced a particular configuration of problems,
+                choices, and consequences. When an Odù appears, it is like saying, “This has happened before, and here
+                is how others walked through it.”
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Odù as Diagnosis & Prescription</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                In traditional practice, Odù help identify what is out of balance and what actions (including sacrifice,
+                character shifts, and community repair) are needed to restore harmony.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Two Core Odù Patterns</h2>
+        <p>The 16 principal Odù form the foundation of the 256 total patterns. Below are examples of the two foundational energies: Expansion (Light) and Contraction (Darkness).  </p>
+
+        <div class="accordion">
+          <!-- ODU 1: Èjì Ogbè (The Great Opener) -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Èjì Ogbè (The Great Opener)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p><strong>Pattern:</strong> The first and most powerful Odù, representing the ultimate alignment, light, and pure consciousness.</p>
+                <pre class="odu-pattern">|  |
+|  |
+|  |
+|  |</pre>
+                <p><strong>Meaning:</strong> Represents new beginnings, success, victory over challenges, long life, and prosperity. It is a sign of great potential and alignment between Orí (inner head) and the Divine. It often advises simplicity, truth, and maintaining good character (Ìwà Pẹ̀lẹ́).</p>
+                <p><strong>Conceptual Summary:</strong> Everything is working in your favor, but you must maintain perfect character to hold the blessing.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ODU 2: Òyèkú Méjì (The Great Darkness) -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-title">Òyèkú Méjì (The Great Darkness)</div>
+              <div class="accordion-indicator">›</div>
+            </div>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">
+                <p><strong>Pattern:</strong> The second Odù, representing transformation, the ancestors, and the dark space before creation.</p>
+                <pre class="odu-pattern">|| ||
+|| ||
+|| ||
+|| ||</pre>
+                <p><strong>Meaning:</strong> Often deals with matters of transition, ancestral connection, death (literal or metaphorical), and the need to end something old to begin something new. It emphasizes the importance of remembering and honoring the past and the ancestors.</p>
+                <p><strong>Conceptual Summary:</strong> A profound ending is occurring or required, calling for deep spiritual cleansing and honoring the support of those who came before you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:12px;">
+          This site stops at metaphor, philosophy, and reflection. For real divination, you go to trained priests and elders.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- PRACTICE PAGE CONTENT -->
+    <div id="page-practice" class="page-panel">
+      <section class="section">
+        <h2>Ìwà Pẹ̀lẹ́ – Good Character as Technology</h2>
+        <p>
+          In Ifá, character is not a side topic — it is the infrastructure. Without good character, blessings leak,
+          relationships break, and destiny gets delayed.
+        </p>
+        <ul>
+          <li>How you treat people when you do not need them.</li>
+          <li>How you handle power, praise, and criticism.</li>
+          <li>How you respond when you are caught in a mistake.</li>
+        </ul>
+        <p>
+          Working on character is one of the most accessible forms of “spiritual practice” available to anyone, anywhere.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Ebó – Sacrifice as Re-Alignment</h2>
+        <p>
+          On a conceptual level, <strong>ebó</strong> asks: “What must shift so that life can shift?” It is about
+          exchanging one state for another.
+        </p>
+        <ul>
+          <li>Time sacrificed for healing and learning.</li>
+          <li>Money or resources shared to unblock flow.</li>
+          <li>Ego given up so that repair can happen.</li>
+          <li>Habits surrendered so that health can return.</li>
+        </ul>
+        <p>
+          Traditional ebó is specific and priest-guided. Here we sit with the question behind it: What offering is my life asking for now?
+        </p>
+      </section>
+    </div>
+
+    <!-- TENETS PAGE CONTENT (NEW) -->
+    <div id="page-tenets" class="page-panel">
+      <section class="section">
+        <h2>The 16 Foundational Concepts of Ifá</h2>
+        <p>
+          These fundamental ideas serve as the philosophical and ethical foundation for the Ifá tradition. Understanding them is key to practicing Ìwà Pẹ̀lẹ́ (Good Character).
+        </p>
+
+        <ul class="tenet-list">
+          <li class="tenet-item">
+            <strong>Monotheism (Ọlọ́dùmarè):</strong> There is only one God, Ọlọ́dùmarè, the creator of all things and source of all power (Àṣẹ).
+          </li>
+          <li class="tenet-item">
+            <strong>No Devil:</strong> There is no single entity of pure, eternal evil (like a Devil or Satan). Evil and misfortune (`Àjogun`) result from imbalance, ignorance, or intentional negative forces, which can be corrected and balanced.
+          </li>
+          <li class="tenet-item">
+            <strong>Orí is Paramount:</strong> Your destiny (`Orí`), chosen before birth, is the highest spiritual authority in your life. Respecting your Orí ensures alignment.
+          </li>
+          <li class="tenet-item">
+            <strong>Ìwà Pẹ̀lẹ́ (Good Character) is the Key:</strong> Ethical and moral behavior is not a choice, but a spiritual technology essential for maintaining the blessings of Orí and sustaining success.
+          </li>
+          <li class="tenet-item">
+            <strong>The Orisha are Forces:</strong> The Òrìṣà are manifestations of divine energy in nature (rivers, iron, wind) and human experience (courage, wisdom, justice), teaching through patterns, not competing gods.
+          </li>
+          <li class="tenet-item">
+            <strong>The Ancestors are Active (`Egungun`):</strong> The spirits of virtuous ancestors remain active and powerful members of the community, providing support and guidance.
+          </li>
+          <li class="tenet-item">
+            <strong>Àṣẹ (The Power to Make Things Happen):</strong> The creative, generative force of the universe; it is present in nature, in the Òrìṣà, and in the spoken word.
+          </li>
+          <li class="tenet-item">
+            <strong>Ebó (Correction/Sacrifice):</strong> Spiritual prescription (action, offering, or behavioral change) used to fix an imbalance diagnosed by the Oracle and clear obstacles.
+          </li>
+          <li class="tenet-item">
+            <strong>The Wisdom of Ifá (`Odù`):</strong> The Oracle system holds the memory of creation (256 Odù), providing diagnosis and historical context for every human situation.
+          </li>
+          <li class="tenet-item">
+            <strong>Reincarnation (`Àtúnwà`):</strong> The spirit returns to life in new cycles, emphasizing the responsibility of the living to their lineage and future generations.
+          </li>
+          <li class="tenet-item">
+            <strong>The Value of Community (`Ìgbéyàwó`):</strong> Success is communal. Individual progress is dependent on the health, support, and harmony of the family and community unit.
+          </li>
+          <li class="tenet-item">
+            <strong>The Truth Must Be Sought:</strong> Truth is the foundation of cosmic order. The wisdom of Ifá is dedicated to uncovering and adhering to universal truths.
+          </li>
+          <li class="tenet-item">
+            <strong>Justice and Consequence:</strong> Every action creates a consequence that seeks to restore balance. Life is a continuous process of self-correction.
+          </li>
+          <li class="tenet-item">
+            <strong>Respect for Nature:</strong> The natural world is the physical manifestation of the Orisha and must be treated with reverence and care.
+          </li>
+          <li class="tenet-item">
+            <strong>Spiritual Practice is Ethical Living:</strong> Ritual is important, but daily ethical conduct (how you live, work, and treat others) is the most potent form of continuous worship.
+          </li>
+          <li class="tenet-item">
+            <strong>Gender Balance:</strong> The tradition recognizes the spiritual authority of both women (`Ìyánífá`) and men (`Babaláwo`) in carrying the wisdom of Ifá.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- RESOURCES PAGE CONTENT -->
+    <div id="page-resources" class="page-panel">
+      <section class="section">
+        <h2>How to Study with Respect</h2>
+        <p>
+          This portal is a <strong>study room</strong>, not a temple. If you feel drawn to continue:
+        </p>
+        <ul>
+          <li>Seek out books and lectures from respected Yorùbá and diaspora scholars and priests.</li>
+          <li>Learn basic Yorùbá phrases and proverbs to feel the rhythm of the language.</li>
+          <li>Listen more than you speak in spaces held by elders.</li>
+          <li>Keep a journal of dreams, repeating lessons, and insights as you learn.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Personal Note</h2>
+        <p>
+          I’ve compiled this research along my journey to heal, using AI as a tool to learn, create, and rebuild myself.
+          I am not a Babaláwo; I simply honor my one hand of Ifá and walk with the principles in real time.
+        </p>
+        <p>
+          May this serve as a basic introduction — a map, not the territory — and may it point you toward deeper study,
+          real community, and your own Orí. Àṣẹ.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Downloads & Links Vault</h2>
+        <div class="locked-content">
+          <svg class="locked-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1zm3-9H9V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2z"/>
+          </svg>
+          <p class="text-lg font-bold text-white">VAULT ACCESS: BUILDING</p>
+          <p class="text-sm text-gray-400 mt-2">
+            The curated resource vault is currently being built and populated. We will update this section soon with
+            trusted PDFs, reading lists, and community links. Thank you for your patience!
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- MODAL WINDOW -->
+  <div class="modal-backdrop" data-modal-backdrop>
+    <div class="modal">
+      <button class="modal-close">Close</button>
+      <h2>Portal Intent</h2>
+      <p>
+        This space is a living notebook from a healing journey — gathering research, reflections, and language
+        for understanding Ifá at a conceptual level. It does not replace elders, initiation, or community.
+        It is a lamp, not a lighthouse.
+      </p>
+      <p>
+        Move with respect. Take what supports your growth and leave what is not for you. Let this deepen
+        gratitude for Yorùbá wisdom, not inflate ego or entitlement. Àṣẹ.
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 • Ifá 101 • Cosmic Yorùbá Study Temple • Created with gratitude and Orí as compass. #V2G #GVI <a href="http://www.V2Gmultimedia.com" target="_blank">www.V2Gmultimedia.com</a>
+  </footer>
+
+  <script>
+    // Parallax hero effect
+    document.addEventListener("mousemove", (e) => {
+      const hero = document.getElementById("hero-inner-container"); // Changed to use ID
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      // Only apply parallax if mouse is over the hero section
+      if (e.clientY < rect.bottom && e.clientY > rect.top) {
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        hero.style.transform = `translate3d(${x * 10}px, ${y * 6}px, 0)`;
+      } else {
+        // Reset transform when mouse leaves the hero area
+        hero.style.transform = `translate3d(0, 0, 0)`;
+      }
+    });
+
+    // --- Single-Page Application (SPA) Logic ---
+
+    const pageData = {
+        'home': {
+            title: 'Ifá 101 • Cosmic Gate',
+            subtitle: 'A four-dimensional study temple for Orí, Òrìṣà, Odù, and character.',
+            fullTitle: 'Ifá 101 • Cosmic Gate – Orí Portal'
+        },
+        'ori': {
+            title: 'Orí – Inner Head & Destiny',
+            subtitle: 'Your inner divinity and chosen path, explored gently and with respect.',
+            fullTitle: 'Orí – Inner Head & Destiny – Ifá 101 • Orí Portal'
+        },
+        'orisha': {
+            title: 'Òrìṣà – Patterns in Nature & Mind',
+            subtitle: 'Forces of nature and consciousness that teach through pattern.',
+            fullTitle: 'Òrìṣà – Patterns in Nature & Mind – Ifá 101 • Orí Portal'
+        },
+        'odu': {
+            title: 'Odù System – The Oracle Library',
+            subtitle: 'Thinking about the 256 life patterns without touching what is secret.',
+            fullTitle: 'Odù System – The Oracle Library – Ifá 101 • Orí Portal'
+        },
+        'practice': {
+            title: 'Practice Today – Character & Survival',
+            subtitle: 'How Ifá ideas of character and sacrifice support 21st-century life.',
+            fullTitle: 'Practice Today – Character & Survival – Ifá 101 • Orí Portal'
+        },
+        'tenets': {
+            title: 'Ifá Tenets – Foundational Philosophy',
+            subtitle: 'The 16 core concepts guiding wisdom and alignment in Yorùbá thought.',
+            fullTitle: 'Ifá Tenets – Foundational Philosophy – Ifá 101 • Orí Portal'
+        },
+        'resources': {
+            title: 'Resources & Study Room',
+            subtitle: 'Guidance on how to study Ifá concepts with care, humility, and Orí in mind.',
+            fullTitle: 'Resources & Study Room – Ifá 101 • Orí Portal'
+        }
+    };
+
+    /**
+     * Switches the main content panel, updates the hero text, and highlights the navigation.
+     * @param {string} targetPage - The data-page attribute (e.g., 'ori', 'odu', 'home').
+     */
+    function switchPage(targetPage) {
+        const panels = document.querySelectorAll('.page-panel');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+
+        // 1. Update Title and Subtitle in the Hero Section
+        const data = pageData[targetPage];
+        if (data) {
+            heroTitle.textContent = data.title;
+            heroSubtitle.textContent = data.subtitle;
+            document.title = data.fullTitle;
+        }
+
+        // 2. Switch Active Content Panel
+        panels.forEach(panel => {
+            panel.classList.remove('active');
+            // Reset revealed state for all sections on page switch to re-trigger reveal effect later
+            panel.querySelectorAll('.section').forEach(sec => sec.classList.remove('revealed'));
+        });
+        const activePanel = document.getElementById(`page-${targetPage}`);
+        if (activePanel) {
+            activePanel.classList.add('active');
+            // Scroll to the top of the main content
+            window.scrollTo({ top: document.querySelector('.navbar').offsetHeight, behavior: 'smooth' });
+        }
+
+
+        // 3. Update Active Navigation Link
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === targetPage) {
+                link.classList.add('active');
+            }
+        });
+
+        // 4. Re-run intersection observer on new content
+        setupRevealOnScroll();
+    }
+
+
+    // --- Event Listeners and Initial Setup ---
+
+    // Function to set up the section reveal observer (must be re-run on page switch)
+    function setupRevealOnScroll() {
+        // Find all section elements in the currently active page panel
+        const sections = document.querySelectorAll(".page-panel.active .section");
+
+        // Disconnect and remove previous observer if it exists
+        if (window.revealObserver) {
+            window.revealObserver.disconnect();
+        }
+
+        // Create a new observer instance
+        window.revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("revealed");
+                        // Optional: unobserve after it has been revealed once
+                        // window.revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.16 }
+        );
+
+        // Observe all sections in the current page
+        sections.forEach((sec) => window.revealObserver.observe(sec));
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Setup Navigation Clicks
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Prevent default behavior since we are handling routing manually
+                e.preventDefault();
+                const targetPage = link.getAttribute('data-page');
+                switchPage(targetPage);
+            });
+        });
+
+        // 2. Setup Home Page Card Clicks (using data-switch-to)
+        document.querySelectorAll('.constellation-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const targetPage = card.getAttribute('data-switch-to');
+                if (targetPage) {
+                    // Find the corresponding link in the navbar and click it to trigger the switchPage function
+                    const navLink = document.querySelector(`.nav-links a[data-page="${targetPage}"]`);
+                    if (navLink) {
+                        navLink.click();
+                    }
+                }
+            });
+        });
+
+        // 3. Accordion Logic (placed here because it targets elements within the main content)
+        // We use a delegated event listener on the main content container to catch clicks on elements that
+        // are dynamically added or hidden/shown.
+        document.getElementById('main-content-container').addEventListener('click', (e) => {
+            const header = e.target.closest(".accordion-header");
+            if (header) {
+                const item = header.closest(".accordion-item");
+                const panel = item.querySelector(".accordion-panel");
+                const isOpen = item.classList.contains("open");
+                if (isOpen) {
+                    panel.style.maxHeight = "0px";
+                    item.classList.remove("open");
+                } else {
+                    // Set max height to panel's scrollHeight for smooth transition
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    item.classList.add("open");
+                }
+            }
+        });
+
+
+        // 4. Modal Logic
+        const modalBackdrop = document.querySelector("[data-modal-backdrop]");
+        if (modalBackdrop) {
+            const openButtons = document.querySelectorAll("[data-open-modal]");
+            const closeBtn = modalBackdrop.querySelector(".modal-close");
+
+            openButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    modalBackdrop.classList.add("open");
+                });
+            });
+
+            closeBtn.addEventListener("click", () => {
+                modalBackdrop.classList.remove("open");
+            });
+
+            modalBackdrop.addEventListener("click", (e) => {
+                if (e.target === modalBackdrop) {
+                    modalBackdrop.classList.remove("open");
+                }
+            });
+        }
+
+
+        // 5. Initial setup: Ensure 'home' is active and trigger reveal
+        // This is necessary because the SPA logic re-runs the initial switchPage('home')
+        // if not specifically on the Orisha page. If the user clicks "Orisha" in the nav,
+        // it calls switchPage('orisha'). The DOMContentLoaded listener ensures we start on a valid page.
+        // We'll trust the user has clicked "Orisha" or is viewing it. We can skip the initial switchPage('home')
+        // here since the previous code snippet has it at the end of DOMContentLoaded. I'll leave it in place
+        // as the app needs an initial state.
+        switchPage('home'); // Initial setup ensures the page starts correctly.
+
+    });
+  </script>
+</body>
+</html>
